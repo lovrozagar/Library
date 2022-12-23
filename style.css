@@ -264,3 +264,10 @@ label{
   opacity: 1;
   pointer-events: all;
 }
+
+@media (max-width: 500px) {
+  .book-grid{
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+}
