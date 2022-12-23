@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --white: #fffbfb;
+  --grey: #f0eef1;
+  --black: #050505;
+  --yellow: #FDE47F;
+  --red: #ff7070;
+  --light-green: #9fff9c;
+  --light-red: #ff9c9c;
+  --border-radius: 8px;
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
+  --spacing-xxl: 40px;
+  --container-width: 1400px;
+  --shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+/* CSS RESET */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  /* footer support */
+  position: relative;
+  min-height: 100%;
+}
+
+body{
+  background-color: var(--grey);
+  color: var(--black);
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+button,
+input {
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+input[type='text'],
+input[type='number'] {
+  cursor: text;
+  appearance: none;
+}
+
+/* UTILS */
+
+.container{
+  max-width: var(--container-width);
+  padding: var(--spacing-xl);
+  margin: 0 auto;
+}
+
+button{
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  transition: filter 0.15s ease-in-out;
+}
+
+button:hover{
+  filter: brightness(90%);
+}
+
+.btn-add-book{
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: var(--spacing-xxl) 0;
+}
+
+.btn-account{
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.read{
+  background-color: var(--light-green);
+}
+
+.not-read{
+  background-color: var(--light-red);
+}
+
+.edit{
+  background-color: var(--yellow);
+}
+
+/* HEADER */
+
+.header{
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.header .container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title{
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.main{
+  max-width: var(--container-width);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+main.container{
+  padding: 0 var(--spacing-xl) 100px var(--spacing-xl);
+}
+
+.book-grid{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  font-size: 1.4rem;
+  font-weight: 500;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+  font-size: 1rem;
+}
+
+img{
+  height: 40px;
+}
+
+/* MODAL */
+
+.modal{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  width: 350px;
+  height: 400px;
+  padding: 1rem;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: var(--grey);
+}
+
+.modal.active{
+  transform: translate(-50%, -50%) scale(1);
+}
+ 
+.form > *{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+form > .modal-title{
+  font-size: 1.4rem;
+  margin-bottom: 1.25rem;
+}
+
+input::placeholder{
+  font-size: 1rem;
+}
+
+.modal-title,
+.is-read{
+  text-align: center;
+}
+
+input[type="text"],
+input[type="number"],
+.submit-button{
+  appearance: none;
+  border: none;
+  border-radius: 5px;
+  width: 275px;
+  height: 40px;
+  padding: 0 0.5rem;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus{
+  outline: none;
+}
+
+label{
+  font-size: 1rem;
+}
+
+.checkbox{
+  margin-left: 0.5rem;
+  accent-color: var(--light-green);
+}
+
+.submit-button{
+  font-size: 1.1rem;
+  font-weight: 600;
+  width: 275px;
+  background-color: var(--light-green);
+}
+
+.submit-button:hover{
+  filter: brightness(90%);
+}
+
+#overlay{
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .5);
+  pointer-events: none;
+}
+
+#overlay.active{
+  opacity: 1;
+  pointer-events: all;
+}
