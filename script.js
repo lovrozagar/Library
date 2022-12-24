@@ -25,16 +25,7 @@ modalSubmitButton.addEventListener('click', (event) => {
   submitBook(event); // every valid from submitted ads a book to library and displays it
 });
 
-modalSubmitButton.addEventListener('touchend', (event) => {
-  submitBook(event); // every valid from submitted ads a book to library and displays it
-});
-
 overlay.addEventListener('click', () => {
-  cardNumber = 0;
-  edit = false;
-});
-
-overlay.addEventListener('touchend', () => {
   cardNumber = 0;
   edit = false;
 });
@@ -132,17 +123,6 @@ function displayBooks() {
       displayBooks();
     });
 
-    read.addEventListener('touchend', () => {
-      if (myLibrary[i].read === false) {
-        myLibrary[i].read = true;
-      }
-      else {
-        myLibrary[i].read = false
-      }
-      displayBooks();
-    });
-
-
     // Adds remove button to card 
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove'
@@ -154,13 +134,7 @@ function displayBooks() {
       removeBook(index);
       displayBooks();
     });
-
-    removeButton.addEventListener('touchend', () => {
-      removeBook(index);
-      displayBooks();
-    });
   }
-
   saveBooksLocal();
 }
 
@@ -177,18 +151,9 @@ openModalButton.addEventListener('click', () => {
   openModal('Add new book');
 });
 
-openModalButton.addEventListener('touchend', () => {
-  openModal('Add new book');
-});
-
 overlay.addEventListener('click', () => {
   closeModal();
 });
-
-overlay.addEventListener('touchend', () => {
-  closeModal();
-});
-
 
 function resetForm() {
   setTimeout(() => {
