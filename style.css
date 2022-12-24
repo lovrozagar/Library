@@ -73,7 +73,7 @@ button{
   transition: filter 0.15s ease-in-out;
 }
 
-button:hover{
+button:hover, button:active{
   filter: brightness(90%);
 }
 

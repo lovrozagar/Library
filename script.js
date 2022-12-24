@@ -96,9 +96,11 @@ function displayBooks() {
     bookCard.appendChild(editButton);
 
     editButton.addEventListener('click', () => {
-      edit = true;
-      cardNumber = index;
-      openModal('Edit book');
+      setTimeout(() => {
+        edit = true;
+        cardNumber = index;
+        openModal('Edit book');
+      }, 100);
     });
 
     
@@ -114,13 +116,15 @@ function displayBooks() {
     bookCard.appendChild(read);
   
     read.addEventListener('click', () => {
-      if (myLibrary[i].read === false) {
-        myLibrary[i].read = true;
-      }
-      else {
-        myLibrary[i].read = false
-      }
-      displayBooks();
+      setTimeout(() => {
+        if (myLibrary[i].read === false) {
+          myLibrary[i].read = true;
+        }
+        else {
+          myLibrary[i].read = false
+        }
+        displayBooks();
+      }, 150);
     });
 
     // Adds remove button to card 
@@ -131,8 +135,10 @@ function displayBooks() {
 
     // Listens for remove button click
     removeButton.addEventListener('click', () => {
-      removeBook(index);
-      displayBooks();
+      setTimeout(() => {
+        removeBook(index);
+        displayBooks();
+      }, 150);
     });
   }
   saveBooksLocal();
