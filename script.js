@@ -99,7 +99,7 @@ function displayBooks() {
       setTimeout(() => {
         edit = true;
         cardNumber = index;
-        openModal('Edit book');
+        openModal('Edit book', edit, index);
       }, 100);
     });
 
@@ -124,7 +124,7 @@ function displayBooks() {
           myLibrary[i].read = false
         }
         displayBooks();
-      }, 150);
+      }, 100);
     });
 
     // Adds remove button to card 
@@ -138,7 +138,7 @@ function displayBooks() {
       setTimeout(() => {
         removeBook(index);
         displayBooks();
-      }, 150);
+      }, 100);
     });
   }
   saveBooksLocal();
@@ -167,12 +167,22 @@ function resetForm() {
   }, 100);
 }
 
-function openModal(string) {
+function openModal(string, isInEdit, index) {
   if (modal == null) return;
   const modalTitle = document.querySelector('.modal-title');
   modalTitle.textContent = string;
   modal.classList.add('active');
   overlay.classList.add('active');
+  if (isInEdit) {
+    const title = document.querySelector('#title');
+    title.value = myLibrary[index].title;
+    const author = document.querySelector('#author');
+    author.value = myLibrary[index].author;
+    const pages = document.querySelector('#pages');
+    pages.value = myLibrary[index].pages;
+    const read = document.querySelector('#read');
+    read.checked = myLibrary[index].read;
+  }
 }
 
 function closeModal() {
