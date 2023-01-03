@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-loop-func */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable prefer-const */
@@ -12,13 +13,22 @@ const modalSubmitButton = document.querySelector('#modal-submit-btn');
 let edit = false;
 let cardNumber = 0;
 
-let myLibrary = [];
-function Book(title, author, pages, read, order) {
+
+class Library{
+  constructor() {
+    this.books = []
+  }
+}
+
+let myLibrary = new Library();
+class Book{
+  constructor(title, author, pages, read, order) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
   this.order = order;
+  }
 }
 
 modalSubmitButton.addEventListener('click', (event) => {
@@ -57,6 +67,7 @@ function submitBook(event) {
 function addBookToLibrary(title, author, pages, read, order) {
   let book = new Book(title, author, pages, read, order);
   myLibrary.push(book);
+
 }
 
 function displayBooks() {
