@@ -4,7 +4,7 @@
   --white: #fffbfb;
   --grey: #f0eef1;
   --black: #050505;
-  --yellow: #FDE47F;
+  --yellow: #fde47f;
   --red: #ff7070;
   --light-green: #9fff9c;
   --light-red: #ff9c9c;
@@ -21,7 +21,9 @@
 
 /* CSS RESET */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -33,7 +35,7 @@ html {
   min-height: 100%;
 }
 
-body{
+body {
   background-color: var(--grey);
   color: var(--black);
   font-family: 'Poppins', sans-serif;
@@ -61,65 +63,66 @@ input[type='number'] {
 
 /* UTILS */
 
-.container{
+.container {
   max-width: var(--container-width);
   padding: var(--spacing-xl);
   margin: 0 auto;
 }
 
-button{
+button {
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius);
   transition: filter 0.15s ease-in-out;
 }
 
-button:hover, button:active{
+button:hover,
+button:active {
   filter: brightness(90%);
 }
 
-.btn-add-book{
+.btn-add-book {
   font-size: 1.75rem;
   font-weight: 600;
   margin: var(--spacing-xxl) 0;
   background-color: var(--grey);
 }
 
-.btn-account{
+.btn-account {
   font-size: 1.4rem;
   font-weight: 500;
 }
 
-.read{
+.read {
   background-color: var(--light-green);
 }
 
-.not-read{
+.not-read {
   background-color: var(--light-red);
 }
 
-.edit{
+.edit {
   background-color: var(--yellow);
 }
 
 /* HEADER */
 
-.header{
+.header {
   background-color: var(--white);
   box-shadow: var(--shadow);
 }
 
-.header .container{
+.header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.title{
+.title {
   font-size: 3rem;
   font-weight: 700;
 }
 
-.main{
+.main {
   max-width: var(--container-width);
   text-align: center;
   display: flex;
@@ -128,18 +131,18 @@ button:hover, button:active{
   margin: 0 auto;
 }
 
-main.container{
+main.container {
   padding: 0 var(--spacing-xl) 100px var(--spacing-xl);
 }
 
-.book-grid{
+.book-grid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: var(--spacing-xl);
 }
 
-.card{
+.card {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -152,7 +155,7 @@ main.container{
   box-shadow: var(--shadow);
 }
 
-footer{
+footer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,13 +166,13 @@ footer{
   font-size: 1rem;
 }
 
-img{
+img {
   height: 40px;
 }
 
 /* MODAL */
 
-.modal{
+.modal {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -188,34 +191,33 @@ img{
   background-color: var(--grey);
 }
 
-.modal.active{
+.modal.active {
   transform: translate(-50%, -50%) scale(1);
 }
- 
-.form > *{
+
+.form > * {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
-form > .modal-title{
+form > .modal-title {
   font-size: 1.4rem;
   margin-bottom: 1.25rem;
 }
 
-input::placeholder{
+input::placeholder {
   font-size: 1rem;
 }
 
 .modal-title,
-.is-read{
+.is-read {
   text-align: center;
 }
 
-input[type="text"],
-input[type="number"],
-.submit-button{
+input[type='text'],
+input[type='number'],
+.submit-button {
   appearance: none;
   border: none;
   font-size: 1rem;
@@ -223,34 +225,60 @@ input[type="number"],
   width: 275px;
   height: 40px;
   padding: 0 0.5rem;
+  margin-top: 1rem;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus{
+input[type='text']:focus,
+input[type='number']:focus {
   outline: none;
 }
 
-label{
+label {
+  margin-top: 1rem;
   font-size: 1rem;
 }
 
-.checkbox{
+.checkbox {
+  margin-top: 1rem;
   margin-left: 0.5rem;
   accent-color: var(--light-green);
 }
 
-.submit-button{
+.submit-button {
   font-size: 1.1rem;
   font-weight: 600;
   width: 275px;
   background-color: var(--light-green);
 }
 
-.submit-button:hover{
+.book-title.invalid,
+.book-author.invalid,
+.book-pages.invalid {
+  border: 2px solid red;
+}
+.book-title + span,
+.book-author + span,
+.book-pages + span {
+  display: none;
+}
+.book-title.invalid + span,
+.book-author.invalid + span,
+.book-pages.invalid + span {
+  display: block;
+  color: black;
+}
+
+span {
+  display: block;
+  padding-left: 0.5rem;
+  text-align: left;
+}
+
+.submit-button:hover {
   filter: brightness(90%);
 }
 
-#overlay{
+#overlay {
   position: fixed;
   opacity: 0;
   transition: 200ms ease-in-out;
@@ -258,48 +286,48 @@ label{
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
 
-#overlay.active{
+#overlay.active {
   opacity: 1;
   pointer-events: all;
 }
 
 @media (max-width: 500px) {
-  .book-grid{
+  .book-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
-  .card{
+  .card {
     font-size: 1.2rem;
   }
 }
 
 @media (max-width: 330px) {
-  .header .container{
+  .header .container {
     display: flex;
     flex-direction: column-reverse;
   }
-  .header .container > *{
+  .header .container > * {
     width: 100%;
     flex: 1;
     text-align: center;
   }
-  .title{
+  .title {
     font-size: 2.5rem;
   }
-  .btn-account{
+  .btn-account {
     padding: var(--spacing-xs) var(--spacing-lg);
   }
-  .btn-add-book{
+  .btn-add-book {
     font-size: 1.5rem;
   }
-  main.container{
+  main.container {
     display: flex;
     flex-direction: column;
   }
-  .book-grid{
+  .book-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }

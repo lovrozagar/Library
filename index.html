@@ -1,53 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>My Library</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="icon"
+      href="https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f4da.png"
+    />
+    <script src="script.js" defer></script>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>My Library</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="icon" href="https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f4da.png">
-  <script src="script.js" defer></script>
-</head>
-
-<body>
-  <header class="header">
-    <div class="container">
-      <h1 class="title">library</h1>
-      <button class="btn-account">Log in</button>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1 class="title">library</h1>
+        <button class="btn-account">Log in</button>
+      </div>
+    </header>
+    <main class="main container">
+      <button id="modal-btn" class="btn-add-book">+ Add book</button>
+      <div class="book-grid"></div>
+    </main>
+    <footer>
+      <p>lovrozagar</p>
+      <img
+        src="https://pngimg.com/uploads/github/github_PNG58.png"
+        alt="GitHub"
+      />
+    </footer>
+    <div id="modal" class="modal">
+      <div class="form-container">
+        <form id="form" class="form" action="" novalidate>
+          <h3 class="modal-title"></h3>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="book-title"
+            value=""
+            minlength="3"
+            maxlength="100"
+            placeholder="Title"
+            required
+          />
+          <span id="title-error"></span>
+          <input
+            type="text"
+            name="author"
+            id="author"
+            class="book-author"
+            value=""
+            minlength="3"
+            maxlength="40"
+            placeholder="Author"
+            required
+          />
+          <span id="author-error"></span>
+          <input
+            type="number"
+            name="pages"
+            id="pages"
+            class="book-pages"
+            value=""
+            min="5"
+            max="10000"
+            placeholder="Pages"
+            required
+          />
+          <span id="pages-error"></span>
+          <div class="is-read" required>
+            <label for="is-read">Have you read it?</label>
+            <input type="checkbox" name="read" id="read" class="checkbox" />
+          </div>
+          <button id="modal-submit-btn" class="submit-button" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
-  </header>
-  <main class="main container">
-    <button id="modal-btn" class="btn-add-book">+ Add book</button>
-    <div class="book-grid">
-
-    </div>
-  </main>
-  <footer>
-    <p>lovrozagar</p>
-    <img src="https://pngimg.com/uploads/github/github_PNG58.png" alt="GitHub">
-  </footer>
-  <div id="modal" class="modal">
-    <div class="form-container">
-      <form id="form" class="form" action="">
-        <h3 class="modal-title"></h3>
-        <input type="text" name="title" id="title" value="" maxlength="100" placeholder="Title" required>
-        <input type="text" name="author" id="author" value="" maxlength="40" placeholder="Author" required>
-        <input type="number" name="pages" id="pages" value="" min="1" max="10000" placeholder="Pages" required>
-        <div class="is-read" required>
-          <label for="is-read">Have you read it?</label>
-          <input type="checkbox" name="read" id="read" class="checkbox">
-        </div>
-        <button id="modal-submit-btn" class="submit-button" type="submit">Submit</button>
-      </form>
-    </div>
-  </div>
-  <div id="overlay"></div>
-</body>
-
+    <div id="overlay"></div>
+  </body>
 </html>

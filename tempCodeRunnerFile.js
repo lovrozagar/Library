@@ -1,0 +1,2 @@
+
+let myLibrary = new Library();

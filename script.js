@@ -5,7 +5,8 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-use-before-define */
-// modal constants 
+// modal constants
+
 const openModalButton = document.querySelector('#modal-btn');
 const overlay = document.getElementById('overlay');
 const modal = document.querySelector('#modal');
@@ -13,21 +14,20 @@ const modalSubmitButton = document.querySelector('#modal-submit-btn');
 let edit = false;
 let cardNumber = 0;
 
-
-class Library{
+class Library {
   constructor() {
-    this.books = []
+    this.books = [];
   }
 }
 
 let myLibrary = new Library();
-class Book{
+class Book {
   constructor(title, author, pages, read, order) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.order = order;
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.order = order;
   }
 }
 
@@ -40,18 +40,167 @@ overlay.addEventListener('click', () => {
   edit = false;
 });
 
+// BOOK FORM VALIDATION
+function unInitBookInput() {
+  const title = document.getElementById('title');
+  const author = document.getElementById('author');
+  const pages = document.getElementById('pages');
+  title.removeEventListener('input', validateTitle);
+  author.removeEventListener('input', validateAuthor);
+  pages.removeEventListener('input', validatePages);
+}
+
+function initBookInput() {
+  const title = document.getElementById('title');
+  const author = document.getElementById('author');
+  const pages = document.getElementById('pages');
+  title.addEventListener('input', validateTitle);
+  author.addEventListener('input', validateAuthor);
+  pages.addEventListener('input', validatePages);
+}
+
+function validateInputs() {
+  const bool1 = validateAuthor();
+  const bool2 = validateTitle();
+  const bool3 = validatePages();
+  if (bool1 && bool2 && bool3) {
+    return true;
+  }
+  return false;
+}
+
+function validateTitle() {
+  const title = document.getElementById('title');
+  const error = document.getElementById('title-error');
+
+  if (!title.validity.valid) {
+    showError(title, error);
+    return false;
+  }
+  clearError(title, error);
+  return true;
+}
+
+function validateAuthor() {
+  const author = document.getElementById('author');
+  const error = document.getElementById('author-error');
+
+  if (!author.validity.valid) {
+    showError(author, error);
+    return false;
+  }
+  clearError(author, error);
+  return true;
+}
+
+function validatePages() {
+  const pages = document.getElementById('pages');
+  const error = document.getElementById('pages-error');
+
+  if (!pages.validity.valid) {
+    showError(pages, error);
+    return false;
+  }
+  clearError(pages, error);
+  return true;
+}
+
+function removeErrors() {
+  unInitBookInput();
+  const title = document.getElementById('title');
+  const author = document.getElementById('author');
+  const pages = document.getElementById('pages');
+  title.classList.remove('invalid');
+  author.classList.remove('invalid');
+  pages.classList.remove('invalid');
+}
+
+function showError(el, elError) {
+  // CHECK TO SHORT
+  if (el.validity.tooShort) {
+    switch (el.id) {
+      case 'title':
+        elError.textContent = 'Minimum title length is 3 characters';
+        break;
+      default:
+        elError.textContent = 'Minimum author length is 3 characters';
+    }
+    el.classList.add('invalid');
+    return;
+  }
+  if (el.validity.tooLong) {
+    switch (el.id) {
+      case 'title':
+        elError.textContent = 'Maximum title length is 100 characters';
+        break;
+      default:
+        elError.textContent = 'Maximum author length is 40 characters';
+    }
+    el.classList.add('invalid');
+    return;
+  }
+  if (el.validity.valueMissing) {
+    switch (el.id) {
+      case 'title':
+        elError.textContent = 'Please enter the title';
+        break;
+      case 'author':
+        elError.textContent = 'Please enter an author';
+        break;
+      default:
+        elError.textContent = 'Please enter the number of pages';
+    }
+    el.classList.add('invalid');
+    return;
+  }
+  if (el.validity.rangeUnderflow) {
+    elError.textContent = 'New book should have at least 5 pages';
+    el.classList.add('invalid');
+    return;
+  }
+  if (el.validity.rangeOverflow) {
+    elError.textContent = 'New book should not have more than 10000 pages';
+    el.classList.add('invalid');
+  }
+}
+
+function clearError(el, elError) {
+  elError.textContent = '';
+  el.classList.remove('invalid');
+}
+
 function submitBook(event) {
   const title = document.querySelector('#title');
   const author = document.querySelector('#author');
   const pages = document.querySelector('#pages');
   const read = document.querySelector('#read');
-  if (title.value !== '' && author.value !== '' && pages.value !== '' && pages.value > 0 && pages.value <= 10000) {
+
+  event.preventDefault();
+
+  if (!validateInputs()) {
+    initBookInput();
+    return;
+  }
+  unInitBookInput();
+
+  if (
+    title.value !== '' &&
+    author.value !== '' &&
+    pages.value !== '' &&
+    pages.value > 0 &&
+    pages.value <= 10000
+  ) {
     event.preventDefault();
     const order = myLibrary.length;
     if (!edit) {
-      addBookToLibrary(title.value, author.value, pages.value, read.checked, order);
-    }
-    else {
+      addBookToLibrary(
+        title.value,
+        author.value,
+        pages.value,
+        read.checked,
+        order
+      );
+    } else {
       myLibrary[cardNumber].title = title.value;
       myLibrary[cardNumber].author = author.value;
       myLibrary[cardNumber].pages = pages.value;
@@ -67,42 +216,41 @@ function submitBook(event) {
 function addBookToLibrary(title, author, pages, read, order) {
   let book = new Book(title, author, pages, read, order);
   myLibrary.push(book);
-
 }
 
 function displayBooks() {
   const booksGrid = document.querySelector('.book-grid');
   const removeCards = document.querySelectorAll('.card');
-  for (let i = 0; i < removeCards.length; i += 1){
+  for (let i = 0; i < removeCards.length; i += 1) {
     removeCards[i].remove();
   }
 
-  for (let i = 0; i < myLibrary.length; i += 1){
+  for (let i = 0; i < myLibrary.length; i += 1) {
     const bookCard = document.createElement('div');
-    bookCard.dataset.linkedArray = i; 
+    bookCard.dataset.linkedArray = i;
     bookCard.classList.add('card');
     booksGrid.appendChild(bookCard);
 
     const index = parseInt(bookCard.dataset.linkedArray, 10);
-  
+
     // Adds title para to card
     const title = document.createElement('p');
     title.textContent = `"${myLibrary[i].title}"`;
     bookCard.appendChild(title);
-  
+
     // Adds author para to card
     const author = document.createElement('p');
     author.textContent = myLibrary[i].author;
     bookCard.appendChild(author);
-  
-    // Adds pages para to card 
+
+    // Adds pages para to card
     const pages = document.createElement('p');
     pages.textContent = `${myLibrary[i].pages} pages`;
     bookCard.appendChild(pages);
 
     // Adds edit button to card
     const editButton = document.createElement('button');
-    editButton.textContent = 'Edit'
+    editButton.textContent = 'Edit';
     editButton.classList.add('edit');
     bookCard.appendChild(editButton);
 
@@ -114,33 +262,30 @@ function displayBooks() {
       }, 100);
     });
 
-    
-    // Adds read button to card 
+    // Adds read button to card
     const read = document.createElement('button');
     read.textContent = isRead(myLibrary[i].read);
     if (myLibrary[i].read) {
       read.classList.add('read');
-    }
-    else {
+    } else {
       read.classList.add('not-read');
     }
     bookCard.appendChild(read);
-  
+
     read.addEventListener('click', () => {
       setTimeout(() => {
         if (myLibrary[i].read === false) {
           myLibrary[i].read = true;
-        }
-        else {
-          myLibrary[i].read = false
+        } else {
+          myLibrary[i].read = false;
         }
         displayBooks();
       }, 100);
     });
 
-    // Adds remove button to card 
+    // Adds remove button to card
     const removeButton = document.createElement('button');
-    removeButton.textContent = 'Remove'
+    removeButton.textContent = 'Remove';
     removeButton.classList.add('remove-button');
     bookCard.appendChild(removeButton);
 
@@ -158,7 +303,6 @@ function displayBooks() {
 function removeBook(index) {
   myLibrary.splice(index, 1);
 }
-
 
 function isRead(read) {
   return read ? 'Read' : 'Not read';
@@ -201,14 +345,15 @@ function closeModal() {
   modal.classList.remove('active');
   overlay.classList.remove('active');
   resetForm();
+  removeErrors();
 }
 
 function addLocalStorage() {
   myLibrary = JSON.parse(localStorage.getItem('library')) || [];
-} 
+}
 
 function saveBooksLocal() {
-  localStorage.setItem("library", JSON.stringify(myLibrary));
+  localStorage.setItem('library', JSON.stringify(myLibrary));
 }
 
 addLocalStorage();
